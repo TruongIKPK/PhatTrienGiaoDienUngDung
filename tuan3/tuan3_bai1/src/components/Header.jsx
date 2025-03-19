@@ -1,4 +1,4 @@
-import Anh from '../assets/image.png'
+
 import Logo from '../assets/chefify.png'
 import Avt from '../assets/avatar.png'
 import { MagnifyingGlassIcon, CheckBadgeIcon } from "@heroicons/react/24/outline";
