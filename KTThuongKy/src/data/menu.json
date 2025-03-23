@@ -1,0 +1,79 @@
+[
+  {
+      "id": 1,
+      "name": "Bánh Mì",
+      "price": 25000,
+      "image": "src/assets/banhmi.webp",
+      "description": "Bánh mì giòn rụm với nhân thịt, pate, rau ngò và dưa leo."
+  },
+  {
+      "id": 2,
+      "name": "Bò Kho",
+      "price": 60000,
+      "image": "src/assets/bokho.jpg",
+      "description": "Bò kho thơm ngon, thịt bò mềm, ăn kèm bánh mì hoặc hủ tiếu."
+  },
+  {
+      "id": 3,
+      "name": "Bún Bò Huế",
+      "price": 55000,
+      "image": "src/assets/bunbo.jpeg",
+      "description": "Bún bò Huế cay nhẹ, nước dùng đậm đà, ăn kèm rau sống."
+  },
+  {
+      "id": 4,
+      "name": "Canh Chua Cá",
+      "price": 50000,
+      "image": "src/assets/canhchua.jpg",
+      "description": "Canh chua cá nấu với dứa, cà chua và bạc hà, vị chua thanh mát."
+  },
+  {
+      "id": 5,
+      "name": "Cơm Chiên",
+      "price": 40000,
+      "image": "src/assets/comchien.jpg",
+      "description": "Cơm chiên giòn ngon với trứng, tôm, xúc xích và rau củ."
+  },
+  {
+      "id": 6,
+      "name": "Cơm Tấm",
+      "price": 45000,
+      "image": "src/assets/comtam.webp",
+      "description": "Cơm tấm sườn nướng thơm ngon, ăn kèm chả trứng, dưa chua và nước mắm."
+  },
+  {
+      "id": 7,
+      "name": "Hủ Tiếu",
+      "price": 50000,
+      "image": "src/assets/hutieu.jpg",
+      "description": "Hủ tiếu với nước dùng ngọt thanh, ăn kèm thịt, tôm và rau thơm."
+  },
+  {
+      "id": 8,
+      "name": "Phở Bò",
+      "price": 50000,
+      "image": "src/assets/Pho.jpg",
+      "description": "Phở bò truyền thống với nước dùng đậm đà, thịt bò tái, hành lá và rau thơm."
+  },
+  {
+      "id": 9,
+      "name": "Súp Cua",
+      "price": 30000,
+      "image": "src/assets/sup.jpg",
+      "description": "Súp cua sánh mịn, đầy ắp thịt cua, trứng cút và bắp ngọt."
+  },
+  {
+      "id": 10,
+      "name": "Phở Bò",
+      "price": 50000,
+      "image": "src/assets/Pho.jpg",
+      "description": "Phở bò truyền thống với nước dùng đậm đà, thịt bò tái, hành lá và rau thơm."
+  },
+  {
+      "id": 11,
+      "name": "Phở Bò",
+      "price": 50000,
+      "image": "src/assets/Pho.jpg",
+      "description": "Phở bò truyền thống với nước dùng đậm đà, thịt bò tái, hành lá và rau thơm."
+  }
+]
