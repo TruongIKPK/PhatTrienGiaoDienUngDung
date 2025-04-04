@@ -1,4 +1,7 @@
 @import "tailwindcss";
+@import "primereact/resources/themes/saga-blue/theme.css";
+@import "primereact/resources/primereact.min.css";
+@import "primeicons/primeicons.css";
 /* :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -43,13 +46,12 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
 }
-button:hover {
+/* button:hover {
   border-color: #646cff;
-}
+} */
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
@@ -63,8 +65,9 @@ button:focus-visible {
   a:hover {
     color: #747bff;
   }
-  button {
-    background-color: #f9f9f9;
+  button:hover {
+    background-color: #F6339A;
+    color: white;
   }
 }
 .container {
@@ -75,7 +78,7 @@ button:focus-visible {
     "menu header"
     "menu content"
   ;
-  grid-template-columns: 1fr 3fr;
+  grid-template-columns: 0.75fr 3fr;
   grid-template-rows: 50px auto 80px;
   height: 100vh;
   gap: 5px;
@@ -89,4 +92,20 @@ button:focus-visible {
 }
 .container > div.content {
   grid-area: content;
+}
+.overview{
+  display: grid;
+  grid-template-areas: 
+    "turnover profit new_customer" 
+  ;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.overview > div.turnover{
+  grid-area: turnover;
+}
+.overview > div.profit{
+  grid-area: profit;
+}
+.overview > div.new_customer{
+  grid-area: new_customer;
 }

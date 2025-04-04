@@ -11,7 +11,11 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.1",
+    "column": "^0.0.2",
+    "datatable": "^2.0.2",
     "json-server": "^1.0.0-beta.3",
+    "primeicons": "^7.0.0",
+    "primereact": "^10.9.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.4.1",
