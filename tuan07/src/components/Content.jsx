@@ -1,5 +1,12 @@
-import Detailed_Report from './Detailed_Report';
+import { Tag } from 'primereact/tag';
 import { useEffect, useState } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import Detailed_Report from './Detailed_Report';
+import Project from './Project'
+import Teams from './Teams'
+import Analytics from './Analytics'
+import Messages from './Messages'
+import Intergrations from './Intergrations'
 function Content(){
     const [rowClick, setRowClick] = useState(false);
     const [selectedProducts, setSelectedProducts] = useState(null);
@@ -93,9 +100,15 @@ function Content(){
                         </div>
                     </div>
                 </div>
-                <Detailed_Report/>
+                <Routes>
+                    <Route key={1} path='/Dashboard' element={<Detailed_Report/>}></Route>
+                    <Route key={2} path='/Project' element={<Project/>}></Route>
+                    <Route key={3} path='/Teams' element={<Teams/>}></Route>
+                    <Route key={4} path='/Analytics' element={<Analytics/>}></Route>
+                    <Route key={5} path='/Messages' element={<Messages/>}></Route>
+                    <Route key={6} path='/Intergrations' element={<Intergrations/>}></Route>
+                </Routes>
             </div>
-           
         </>
     )
 }
