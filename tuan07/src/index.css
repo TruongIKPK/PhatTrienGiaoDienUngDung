@@ -109,3 +109,39 @@ button:focus-visible {
 .overview > div.new_customer{
   grid-area: new_customer;
 }
+
+/* Custom Dialog Styles */
+.p-dialog-custom {
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.p-dialog-custom .p-dialog-header {
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  padding: 1.25rem;
+  background-color: #fff;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.p-dialog-custom .p-dialog-content {
+  padding: 1.5rem;
+  background-color: #fff;
+}
+
+.p-dialog-custom .p-dialog-footer {
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  padding: 1.25rem;
+  background-color: #fff;
+  border-top: 1px solid #e5e7eb;
+}
+
+.p-dialog-custom input {
+  transition: all 0.3s ease;
+}
+
+.p-dialog-custom input:focus {
+  border-color: #ec4899;
+  box-shadow: 0 0 0 2px rgba(236, 72, 153, 0.2);
+}

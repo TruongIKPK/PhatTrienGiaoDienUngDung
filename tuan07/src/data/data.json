@@ -251,6 +251,15 @@
       "status": "Completed",
       "img": "src/assets/Avatar (1).png",
       "id": "551e"
+    },
+    {
+      "id": "0df0",
+      "name": "Truong",
+      "company": "IUH",
+      "order_value": "232",
+      "order_date": "21/09/2003",
+      "status": "New",
+      "img": "src/assets/default-avatar.png"
     }
   ]
 }
