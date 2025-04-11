@@ -1,0 +1,105 @@
+import { Tag } from 'primereact/tag';
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
+import { useState, useEffect } from 'react';
+function Detailed_Report({}){
+        const [rowClick, setRowClick] = useState(false);
+        const [selectedProducts, setSelectedProducts] = useState(null);
+        const products = selectedProducts;
+        const [selectedRows, setSelectedRows] = useState([]);
+        useEffect(() => {
+            setSelectedProducts(selectedRows);
+        }, [selectedRows]);
+        useEffect(() => {
+            fetch("http://localhost:3000/customers")
+                .then(res => res.json())
+                .then(json => {
+                    console.log("Dữ liệu từ API:", json);
+                    setSelectedProducts(json);
+                })
+                .catch(error => console.log(error));
+        }, []);
+    
+        const statusOrderBodyTemplate = (rowData) => {
+            const statusMap = {
+                "New": { label: "New", severity: "info" },
+                "In-progress": { label: "In Progress", severity: "warning" },
+                "Completed": { label: "Completed", severity: "success" },
+                "Cancelled": { label: "Cancelled", severity: "danger" }
+            };
+        
+            const status = statusMap[rowData.status] || { label: rowData.status, severity: "secondary" };
+        
+            return <Tag value={status.label} severity={status.severity} />;
+        };
+        const representativeBodyTemplate = (rowData) => {
+            if (!rowData.name || !rowData.img) return null;
+        
+            return (
+                <div className="flex align-items-center gap-2">
+                    <img alt={rowData.name} src={rowData.img} width="32" />
+                    <span>{rowData.name}</span>
+                </div>
+            );
+        };
+        const actionBodyTemplate = (rowData) => {
+            return (
+                <div className="flex">
+                    <button
+                        className='hover:!bg-blue-100'
+                        onClick={() => editProduct(rowData)}
+                    >   
+                        <img src="src/assets/create.png" alt="" />
+                    </button>
+                </div>
+            );
+        };
+        const editProduct = (product) => {
+            console.log("Chỉnh sửa sản phẩm:", product);
+        };
+    return(
+        <>
+            <div>
+                    <div className="flex items-center justify-between pb-3">
+                        <div className="flex">
+                            <img src="src/assets/File text 1.png" alt="" />
+                            <p className="font-bold text-xl">Detailed report</p>
+                        </div>
+                        <div className="space-x-3 flex">
+                            <button className="flex h-10 w-25 items-center space-x-2 !border !border-pink-500 justify-center hover:!bg-gray-100 hover:!text-gray-800">
+                                <img className="h-4" src="src/assets/Download.png" alt="" />
+                                <p>Import</p>
+                            </button>
+                            <button className="flex h-10 w-25 items-center space-x-2s !border !border-pink-500 justify-center hover:!bg-gray-100 hover:!text-gray-800">
+                                <img className="h-4" src="src/assets/Move up.png" alt="" />
+                                <p>Export</p>
+                            </button>
+                        </div>
+                    </div>
+                    <div>
+                        <DataTable
+                            value={products}
+                            selectionMode={rowClick ? null : 'checkbox'}
+                            selection={selectedRows}
+                            onSelectionChange={(e) => setSelectedProducts(e.value)}
+                            dataKey="id"
+                            tableStyle={{ minWidth: '50rem' }}
+                            paginator 
+                            rows={4} 
+                            rowsPerPageOptions={[4, 10, 20]} 
+                        >
+                            <Column selectionMode="multiple" headerStyle={{ width: '3rem' }}></Column>
+                            <Column header="CUSTOMER" filterField="representative" showFilterMatchModes={false} filterMenuStyle={{ width: '14rem' }} style={{ minWidth: '14rem' }}
+                            body={representativeBodyTemplate}/>
+                            <Column field="company" header="COMPANY"></Column>
+                            <Column field="order_value" header="ORDER VALUE"></Column>
+                            <Column field="order_date" header="ORDER DATE"></Column>
+                            <Column field="status" header="STATUS" body={statusOrderBodyTemplate} sortable></Column>
+                            <Column body={actionBodyTemplate} exportable={false}></Column>
+                        </DataTable> 
+                    </div>
+                </div>
+        </>
+    )
+}
+export default Detailed_Report;

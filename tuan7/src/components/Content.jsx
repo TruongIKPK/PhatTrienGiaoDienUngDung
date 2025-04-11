@@ -1,7 +1,12 @@
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
 import { Tag } from 'primereact/tag';
 import { useEffect, useState } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import Detailed_Report from './Detailed_Report';
+import Project from './Project'
+import Teams from './Teams'
+import Analytics from './Analytics'
+import Messages from './Messages'
+import Intergrations from './Intergrations'
 function Content(){
     const [rowClick, setRowClick] = useState(false);
     const [selectedProducts, setSelectedProducts] = useState(null);
@@ -95,45 +100,14 @@ function Content(){
                         </div>
                     </div>
                 </div>
-                <div>
-                    <div className="flex items-center justify-between pb-3">
-                        <div className="flex">
-                            <img src="src/assets/File text 1.png" alt="" />
-                            <p className="font-bold text-xl">Detailed report</p>
-                        </div>
-                        <div className="space-x-3 flex">
-                            <button className="flex h-10 w-25 items-center space-x-2 !border !border-pink-500 justify-center hover:!bg-gray-100 hover:!text-gray-800">
-                                <img className="h-4" src="src/assets/Download.png" alt="" />
-                                <p>Import</p>
-                            </button>
-                            <button className="flex h-10 w-25 items-center space-x-2s !border !border-pink-500 justify-center hover:!bg-gray-100 hover:!text-gray-800">
-                                <img className="h-4" src="src/assets/Move up.png" alt="" />
-                                <p>Export</p>
-                            </button>
-                        </div>
-                    </div>
-                    <div>
-                        <DataTable
-                            value={products}
-                            selectionMode={rowClick ? null : 'checkbox'}
-                            selection={selectedRows}
-                            onSelectionChange={(e) => setSelectedProducts(e.value)}
-                            dataKey="id"
-                            tableStyle={{ minWidth: '50rem' }}
-                            paginator 
-                            rows={4} 
-                            rowsPerPageOptions={[4, 10, 20]} 
-                        >
-                            <Column selectionMode="multiple" headerStyle={{ width: '3rem' }}></Column>
-                            <Column field="name" header="CUSTOMER NAME"></Column>
-                            <Column field="company" header="COMPANY"></Column>
-                            <Column field="order_value" header="ORDER VALUE"></Column>
-                            <Column field="order_date" header="ORDER DATE"></Column>
-                            <Column field="status" header="STATUS" body={statusOrderBodyTemplate} sortable></Column>
-                            <Column body={actionBodyTemplate} exportable={false}></Column>
-                        </DataTable> 
-                    </div>
-                </div>
+                <Routes>
+                    <Route key={1} path='/Dashboard' element={<Detailed_Report/>}></Route>
+                    <Route key={2} path='/Project' element={<Project/>}></Route>
+                    <Route key={3} path='/Teams' element={<Teams/>}></Route>
+                    <Route key={4} path='/Analytics' element={<Analytics/>}></Route>
+                    <Route key={5} path='/Messages' element={<Messages/>}></Route>
+                    <Route key={6} path='/Intergrations' element={<Intergrations/>}></Route>
+                </Routes>
             </div>
         </>
     )
