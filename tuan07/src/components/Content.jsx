@@ -1,4 +1,4 @@
-
+import Detailed_Report from './Detailed_Report';
 import { useEffect, useState } from 'react';
 function Content(){
     const [rowClick, setRowClick] = useState(false);
@@ -93,7 +93,9 @@ function Content(){
                         </div>
                     </div>
                 </div>
+                <Detailed_Report/>
             </div>
+           
         </>
     )
 }
