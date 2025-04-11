@@ -1,12 +1,24 @@
     import { Tag } from 'primereact/tag';
     import { DataTable } from 'primereact/datatable';
     import { Column } from 'primereact/column';
+    import { Dialog } from 'primereact/dialog';
+    import { InputText } from 'primereact/inputtext';
     import { useState, useEffect } from 'react';
     function Detailed_Report({}){
             const [rowClick, setRowClick] = useState(false);
             const [selectedProducts, setSelectedProducts] = useState(null);
             const products = selectedProducts;
             const [selectedRows, setSelectedRows] = useState([]);
+            const [visible, setVisible] = useState(false);
+            const [editData, setEditData] = useState({
+                id: '',
+                name: '',
+                company: '',
+                order_value: '',
+                order_date: '',
+                status: '',
+                img: ''
+            });
             useEffect(() => {
                 setSelectedProducts(selectedRows);
             }, [selectedRows]);
@@ -55,7 +67,40 @@
                 );
             };
             const editProduct = (product) => {
-                console.log("Chỉnh sửa sản phẩm:", product);
+                setEditData(product);
+                setVisible(true);
+            };
+
+            const saveProduct = async () => {
+                try {
+                    const response = await fetch(`http://localhost:3000/customers/${editData.id}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(editData)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Failed to update customer');
+                    }
+
+                    // Refresh the data after successful update
+                    const updatedData = await fetch("http://localhost:3000/customers")
+                        .then(res => res.json());
+                    setSelectedProducts(updatedData);
+                    setVisible(false);
+                } catch (error) {
+                    console.error('Error updating customer:', error);
+                }
+            };
+
+            const handleInputChange = (e) => {
+                const { name, value } = e.target;
+                setEditData(prev => ({
+                    ...prev,
+                    [name]: value
+                }));
             };
         return(
             <>
@@ -99,6 +144,77 @@
                             </DataTable> 
                         </div>
                     </div>
+
+                    <Dialog 
+                        visible={visible} 
+                        onHide={() => setVisible(false)} 
+                        header="Edit Customer" 
+                        style={{ width: '50vw' }}
+                        footer={
+                            <div>
+                                <button 
+                                    className="p-button p-component p-button-text mr-2" 
+                                    onClick={() => setVisible(false)}
+                                >
+                                    Cancel
+                                </button>
+                                <button 
+                                    className="p-button p-component p-button-success" 
+                                    onClick={saveProduct}
+                                >
+                                    Save
+                                </button>
+                            </div>
+                        }
+                    >
+                        <div className="p-fluid">
+                            <div className="field">
+                                <label htmlFor="name">Name</label>
+                                <InputText 
+                                    id="name" 
+                                    name="name" 
+                                    value={editData.name} 
+                                    onChange={handleInputChange} 
+                                />
+                            </div>
+                            <div className="field">
+                                <label htmlFor="company">Company</label>
+                                <InputText 
+                                    id="company" 
+                                    name="company" 
+                                    value={editData.company} 
+                                    onChange={handleInputChange} 
+                                />
+                            </div>
+                            <div className="field">
+                                <label htmlFor="order_value">Order Value</label>
+                                <InputText 
+                                    id="order_value" 
+                                    name="order_value" 
+                                    value={editData.order_value} 
+                                    onChange={handleInputChange} 
+                                />
+                            </div>
+                            <div className="field">
+                                <label htmlFor="order_date">Order Date</label>
+                                <InputText 
+                                    id="order_date" 
+                                    name="order_date" 
+                                    value={editData.order_date} 
+                                    onChange={handleInputChange} 
+                                />
+                            </div>
+                            <div className="field">
+                                <label htmlFor="status">Status</label>
+                                <InputText 
+                                    id="status" 
+                                    name="status" 
+                                    value={editData.status} 
+                                    onChange={handleInputChange} 
+                                />
+                            </div>
+                        </div>
+                    </Dialog>
             </>
         )
     }
