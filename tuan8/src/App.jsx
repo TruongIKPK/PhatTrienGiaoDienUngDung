@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom'
 import './App.css'
-import { FaSearch, FaBookmark } from 'react-icons/fa'
+import { FaSearch, FaBookmark, FaUser } from 'react-icons/fa'
+import { AuthProvider, useAuth } from './contexts/AuthContext'
 
 // Import pages
 import WhatToCook from './pages/WhatToCook'
@@ -9,6 +10,8 @@ import Recipes from './pages/Recipes'
 import Ingredients from './pages/Ingredients'
 import Occasions from './pages/Occasions'
 import AboutUs from './pages/AboutUs'
+import Login from './pages/Login'
+import Subscribe from './pages/Subscribe'
 
 // Logo URL
 const LOGO_URL = "https://i.imgur.com/8KhVmQt.png"
@@ -101,86 +104,132 @@ const editorsPicks = [
   }
 ]
 
+function HeaderRight() {
+  const { user, logout } = useAuth()
+  const navigate = useNavigate()
+
+  const handleLogout = () => {
+    logout()
+    navigate('/')
+  }
+
+  if (user) {
+    return (
+      <div className="header-right">
+        <div className="user-menu">
+          <img src={user.avatar} alt={user.name} className="user-avatar" />
+          <div className="user-dropdown">
+            <div className="user-info">
+              <span className="user-name">{user.name}</span>
+              <span className="user-email">{user.email}</span>
+            </div>
+            <ul className="dropdown-menu">
+              <li><Link to="/profile">Profile</Link></li>
+              <li><Link to="/favorites">My Favorites</Link></li>
+              <li><button onClick={handleLogout}>Logout</button></li>
+            </ul>
+          </div>
+        </div>
+        <Link to="/subscribe" className="subscribe-btn">Subscribe</Link>
+      </div>
+    )
+  }
+
+  return (
+    <div className="header-right">
+      <Link to="/login" className="login-btn">Login</Link>
+      <Link to="/subscribe" className="subscribe-btn">Subscribe</Link>
+    </div>
+  )
+}
+
+function AppContent() {
+  return (
+    <div className="app-container">
+      {/* Header */}
+      <header className="header">
+        <div className="header-content">
+          <Link to="/">
+            <img src={LOGO_URL} alt="Chefify" className="logo" />
+          </Link>
+          <nav className="nav-links">
+            <Link to="/" className="active">What to cook</Link>
+            <Link to="/recipes">Recipes</Link>
+            <Link to="/ingredients">Ingredients</Link>
+            <Link to="/occasions">Occasions</Link>
+            <Link to="/about">About Us</Link>
+          </nav>
+          <HeaderRight />
+        </div>
+      </header>
+
+      {/* Main Content */}
+      <Routes>
+        <Route path="/" element={<WhatToCook />} />
+        <Route path="/recipes" element={<Recipes />} />
+        <Route path="/ingredients" element={<Ingredients />} />
+        <Route path="/occasions" element={<Occasions />} />
+        <Route path="/about" element={<AboutUs />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/subscribe" element={<Subscribe />} />
+      </Routes>
+
+      {/* Footer */}
+      <footer className="footer">
+        <div className="footer-content">
+          <div className="footer-section">
+            <h3>About Us</h3>
+            <p>Welcome to our website, a wonderful place to explore and learn how to cook like a pro.</p>
+            <div className="newsletter">
+              <input type="email" placeholder="Enter your email" />
+              <button>Send</button>
+            </div>
+          </div>
+          <div className="footer-section">
+            <h3>Learn More</h3>
+            <ul>
+              <li><Link to="/about">Our Chefs</Link></li>
+              <li><a href="#">See Our Features</a></li>
+              <li><a href="#">FAQ</a></li>
+            </ul>
+          </div>
+          <div className="footer-section">
+            <h3>Shop</h3>
+            <ul>
+              <li><Link to="/subscribe">Gift Subscription</Link></li>
+              <li><a href="#">Send Us Feedback</a></li>
+            </ul>
+          </div>
+          <div className="footer-section">
+            <h3>Recipes</h3>
+            <ul>
+              <li><Link to="/recipes">What to Cook This Week</Link></li>
+              <li><Link to="/recipes">Dinner</Link></li>
+              <li><Link to="/recipes">Healthy</Link></li>
+              <li><Link to="/recipes">Vegetarian</Link></li>
+              <li><Link to="/recipes">Vegan</Link></li>
+              <li><Link to="/occasions">Christmas</Link></li>
+            </ul>
+          </div>
+        </div>
+        <div className="footer-bottom">
+          <img src={LOGO_URL} alt="Chefify" className="footer-logo" />
+          <div className="footer-links">
+            <a href="#">Terms of Service</a>
+            <a href="#">Privacy Policy</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+  )
+}
+
 function App() {
   return (
     <Router>
-      <div className="app-container">
-        {/* Header */}
-        <header className="header">
-          <div className="header-content">
-            <Link to="/">
-              <img src={LOGO_URL} alt="Chefify" className="logo" />
-            </Link>
-            <nav className="nav-links">
-              <Link to="/" className="active">What to cook</Link>
-              <Link to="/recipes">Recipes</Link>
-              <Link to="/ingredients">Ingredients</Link>
-              <Link to="/occasions">Occasions</Link>
-              <Link to="/about">About Us</Link>
-            </nav>
-            <div className="header-right">
-              <button className="login-btn">Login</button>
-              <button className="subscribe-btn">Subscribe</button>
-            </div>
-          </div>
-        </header>
-
-        {/* Main Content */}
-        <Routes>
-          <Route path="/" element={<WhatToCook />} />
-          <Route path="/recipes" element={<Recipes />} />
-          <Route path="/ingredients" element={<Ingredients />} />
-          <Route path="/occasions" element={<Occasions />} />
-          <Route path="/about" element={<AboutUs />} />
-        </Routes>
-
-        {/* Footer */}
-        <footer className="footer">
-          <div className="footer-content">
-            <div className="footer-section">
-              <h3>About Us</h3>
-              <p>Welcome to our website, a wonderful place to explore and learn how to cook like a pro.</p>
-              <div className="newsletter">
-                <input type="email" placeholder="Enter your email" />
-                <button>Send</button>
-              </div>
-            </div>
-            <div className="footer-section">
-              <h3>Learn More</h3>
-              <ul>
-                <li><Link to="/about">Our Chefs</Link></li>
-                <li><a href="#">See Our Features</a></li>
-                <li><a href="#">FAQ</a></li>
-              </ul>
-            </div>
-            <div className="footer-section">
-              <h3>Shop</h3>
-              <ul>
-                <li><a href="#">Gift Subscription</a></li>
-                <li><a href="#">Send Us Feedback</a></li>
-              </ul>
-            </div>
-            <div className="footer-section">
-              <h3>Recipes</h3>
-              <ul>
-                <li><Link to="/recipes">What to Cook This Week</Link></li>
-                <li><Link to="/recipes">Dinner</Link></li>
-                <li><Link to="/recipes">Healthy</Link></li>
-                <li><Link to="/recipes">Vegetarian</Link></li>
-                <li><Link to="/recipes">Vegan</Link></li>
-                <li><Link to="/occasions">Christmas</Link></li>
-              </ul>
-            </div>
-          </div>
-          <div className="footer-bottom">
-            <img src={LOGO_URL} alt="Chefify" className="footer-logo" />
-            <div className="footer-links">
-              <a href="#">Terms of Service</a>
-              <a href="#">Privacy Policy</a>
-            </div>
-          </div>
-        </footer>
-      </div>
+      <AuthProvider>
+        <AppContent />
+      </AuthProvider>
     </Router>
   )
 }
