@@ -24,6 +24,12 @@
     color: #666;
   }
   
+  .category-filter-results {
+    font-size: 1rem;
+    font-weight: normal;
+    color: #666;
+  }
+  
   .product-list-header {
     display: grid;
     grid-template-columns: 3fr 1fr 1fr 1.5fr 1.5fr;

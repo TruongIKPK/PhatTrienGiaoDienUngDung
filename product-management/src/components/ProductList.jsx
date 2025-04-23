@@ -3,12 +3,15 @@
 import ProductItem from "./ProductItem"
 import "./ProductList.css"
 
-const ProductList = ({ products, onDelete, searchTerm }) => {
+const ProductList = ({ products, onDelete, searchTerm, selectedCategory }) => {
   return (
     <div className="product-list-container">
       <h2>
         Danh sách sản phẩm ({products.length})
         {searchTerm && <span className="search-results"> - Kết quả tìm kiếm cho "{searchTerm}"</span>}
+        {selectedCategory !== "Tất cả" && (
+          <span className="category-filter-results"> - Danh mục: {selectedCategory}</span>
+        )}
       </h2>
 
       <div className="product-list-header">
