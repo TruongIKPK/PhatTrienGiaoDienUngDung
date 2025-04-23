@@ -51,18 +51,31 @@ function App() {
     },
   ])
 
+  const [notification, setNotification] = useState(null)
+
   const handleAddProduct = (newProduct) => {
     setProducts([...products, newProduct])
+    showNotification(`Đã thêm sản phẩm "${newProduct.name}"`)
   }
 
   const handleDeleteProduct = (id) => {
+    const productToDelete = products.find((product) => product.id === id)
     setProducts(products.filter((product) => product.id !== id))
+    showNotification(`Đã xoá sản phẩm "${productToDelete.name}"`)
+  }
+
+  const showNotification = (message) => {
+    setNotification(message)
+    setTimeout(() => {
+      setNotification(null)
+    }, 3000)
   }
 
   return (
     <div className="app-container">
       <Header title="Quản lý sản phẩm" />
       <main className="main-content">
+        {notification && <div className="notification">{notification}</div>}
         <ProductForm onAddProduct={handleAddProduct} />
         <ProductList products={products} onDelete={handleDeleteProduct} />
       </main>
