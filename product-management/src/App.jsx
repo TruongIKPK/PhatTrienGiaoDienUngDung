@@ -1,8 +1,9 @@
 "use client"
-import { useState } from "react"
+import { useState, useMemo } from "react"
 import "./App.css"
 import ProductList from "./components/ProductList"
 import ProductForm from "./components/ProductForm"
+import SearchBar from "./components/SearchBar"
 import Header from "./components/Header"
 
 function App() {
@@ -52,6 +53,19 @@ function App() {
   ])
 
   const [notification, setNotification] = useState(null)
+  const [searchTerm, setSearchTerm] = useState("")
+
+  // Lọc sản phẩm theo từ khóa tìm kiếm
+  const filteredProducts = useMemo(() => {
+    if (!searchTerm.trim()) return products
+
+    const searchTermLower = searchTerm.toLowerCase().trim()
+    return products.filter((product) => product.name.toLowerCase().includes(searchTermLower))
+  }, [products, searchTerm])
+
+  const handleSearch = (term) => {
+    setSearchTerm(term)
+  }
 
   const handleAddProduct = (newProduct) => {
     setProducts([...products, newProduct])
@@ -77,7 +91,10 @@ function App() {
       <main className="main-content">
         {notification && <div className="notification">{notification}</div>}
         <ProductForm onAddProduct={handleAddProduct} />
-        <ProductList products={products} onDelete={handleDeleteProduct} />
+        <div className="product-list-section">
+          <SearchBar onSearch={handleSearch} />
+          <ProductList products={filteredProducts} onDelete={handleDeleteProduct} searchTerm={searchTerm} />
+        </div>
       </main>
     </div>
   )

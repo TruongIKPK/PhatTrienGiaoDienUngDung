@@ -47,6 +47,12 @@
   position: relative;
 }
 
+.product-list-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
 .notification {
   position: fixed;
   top: 20px;

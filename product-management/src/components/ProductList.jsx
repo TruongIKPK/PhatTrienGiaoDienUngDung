@@ -3,10 +3,13 @@
 import ProductItem from "./ProductItem"
 import "./ProductList.css"
 
-const ProductList = ({ products, onDelete }) => {
+const ProductList = ({ products, onDelete, searchTerm }) => {
   return (
     <div className="product-list-container">
-      <h2>Danh sách sản phẩm ({products.length})</h2>
+      <h2>
+        Danh sách sản phẩm ({products.length})
+        {searchTerm && <span className="search-results"> - Kết quả tìm kiếm cho "{searchTerm}"</span>}
+      </h2>
 
       <div className="product-list-header">
         <div className="product-name-header">Tên sản phẩm</div>
@@ -20,7 +23,9 @@ const ProductList = ({ products, onDelete }) => {
         {products.length > 0 ? (
           products.map((product) => <ProductItem key={product.id} product={product} onDelete={onDelete} />)
         ) : (
-          <div className="no-products">Không có sản phẩm nào</div>
+          <div className="no-products">
+            {searchTerm ? `Không tìm thấy sản phẩm nào phù hợp với "${searchTerm}"` : "Không có sản phẩm nào"}
+          </div>
         )}
       </div>
     </div>
